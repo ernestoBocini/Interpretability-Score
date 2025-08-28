@@ -2,6 +2,16 @@
 
 A comprehensive toolkit for analyzing and measuring the interpretability of neural network activations, with a focus on CLIP vision models and human-aligned concept detection.
 
+## 🤖 Model
+
+This framework uses the **CLIP RN50x4** model as featured in the [OpenAI Multimodal Neuron Paper](https://distill.pub/2021/multimodal-neurons/). The model can be downloaded using:
+
+```bash
+wget https://raw.githubusercontent.com/openai/CLIP-featurevis/master/model.py
+```
+
+This choice ensures compatibility with existing interpretability research and provides access to the well-studied multimodal neurons identified in the OpenAI paper.
+
 ## 🎯 Overview
 
 This repository provides tools for:
@@ -24,15 +34,22 @@ This repository provides tools for:
 └── interpretability_score.py     # Main benchmark runner
 ```
 
-## 🤖 Model
+## 🔬 Interactive Neuron Exploration
 
-This framework uses the **CLIP RN50x4** model as featured in the [OpenAI Multimodal Neuron Paper](https://distill.pub/2021/multimodal-neurons/). The model can be downloaded using:
+Before diving into quantitative analysis, explore neurons visually with our **CLIP Microscope** tool:
 
-```bash
-wget https://raw.githubusercontent.com/openai/CLIP-featurevis/master/model.py
+**[🌐 Launch Interactive Microscope](https://neuronbenchmark.streamlit.app/)**
+
+This web application lets you:
+- 🎨 **Visualize** what each of 2,560+ neurons detects through feature visualizations
+- 🖼️ **Browse** top activating ImageNet images for any neuron
+- 📊 **Analyze** activation patterns and neuron relationships
+- 🔍 **Discover** interesting concepts before running interpretability benchmarks
+
+**Perfect Research Workflow**:
 ```
-
-This choice ensures compatibility with existing interpretability research and provides access to the well-studied multimodal neurons identified in the OpenAI paper.
+Visual Discovery (Microscope) → Quantitative Analysis (InterpScore) → Research Insights
+```
 
 ## 📊 InterpScore Framework
 
@@ -91,7 +108,17 @@ wget https://raw.githubusercontent.com/openai/CLIP-featurevis/master/model.py
 export PYTHONPATH="${PYTHONPATH}:$(pwd)"
 ```
 
-### 2. Data Preparation
+### 2. Explore Neurons Visually
+
+**[🌐 Open CLIP Microscope](https://neuronbenchmark.streamlit.app/)**
+
+Before running quantitative analysis, visually explore interesting neurons:
+```
+1. Browse through 2,560+ neurons
+2. Look for clear conceptual patterns
+3. Note neuron IDs that seem interpretable
+4. Use these for targeted InterpScore analysis
+```
 
 ```bash
 # Download required datasets
@@ -101,7 +128,15 @@ cd Data/
 ./download_prolific_data_s3.sh       # Human experiment data
 ```
 
-### 3. Extract Activations
+### 3. Data Preparation
+
+```bash
+# Download required datasets
+cd Data/
+./download_clip_activation_s3.sh    # Neural activation data
+./download_images_data_s3.sh         # Image datasets
+./download_prolific_data_s3.sh       # Human experiment data
+```
 
 ```python
 from Activation_Extraction.activation_extractor import extract_activations
