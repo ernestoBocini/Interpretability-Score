@@ -15,8 +15,7 @@ os.environ['TF_AVGPOOL_ALLOW_NHWC'] = '1'
 from clip_helpers import preprocess_image
 
 # export path where model is (root):
-MODEL_PATH = "../model.py"
-sys.path.append(os.path.dirname(MODEL_PATH))
+sys.path.append('../')
 
 
 def extract_clip_layer_activations(

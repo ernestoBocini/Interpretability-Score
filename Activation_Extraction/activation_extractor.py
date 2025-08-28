@@ -16,8 +16,7 @@ os.environ['TF_ENABLE_NHWC'] = '1'
 os.environ['TF_AVGPOOL_ALLOW_NHWC'] = '1'
 
 # export path where model is (root):
-MODEL_PATH = "../model.py"
-sys.path.append(os.path.dirname(MODEL_PATH))
+sys.path.append('../')
 
 def get_clip_neuron_activation_tf(image_path, neuron_idx=89, show_image=True):
     """
