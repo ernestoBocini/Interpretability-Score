@@ -5,7 +5,7 @@
 
 # EXAMPLES
 # # Basic usage with defaults
-# ./run_benchmark.sh data.csv neuron_map.json results.csv
+# ./run_10_neurons_scoring.sh Data/joined_experimement_data.csv Data/neuron_label_map.json results.csv
 
 # # Custom parameters
 # ./run_benchmark.sh data.csv neuron_map.json results.csv --clean-level 4 --quiet

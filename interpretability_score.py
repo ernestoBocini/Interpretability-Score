@@ -6,6 +6,8 @@ import numpy as np
 import json
 import argparse
 
+sys.path.append('InterpScore')
+
 # Import your existing scoring functions from InterpScore folder
 from InterpScore.selectivity import calculate_selectivity_score
 from InterpScore.causality import calculate_causality_score
@@ -77,7 +79,7 @@ def implement_interpretability_benchmark(df, neuron_label_map, clean_level=5,
         C = calculate_causality_score(exp_df, neuron_id, concept_name, activation_col)
         
         # 3. ROBUSTNESS SCORE (human-recognizable perturbed images only)
-        R = calculate_robustness_score(exp_df, concept_name, activation_col, recognizable_levels)
+        R = calculate_robustness_score(exp_df, concept_name, activation_col)
         
         # 4. HUMAN CONSISTENCY SCORE (using clean + all concept data)
         concept_data = exp_df[exp_df['ground_truth'] == concept_name.lower()].copy()
@@ -90,14 +92,13 @@ def implement_interpretability_benchmark(df, neuron_label_map, clean_level=5,
         if len(high_activation_images) > 0 and human_score_col in high_activation_images.columns:
             H = calculate_human_consistency_score(
                 high_activation_images[activation_col],
-                high_activation_images[human_score_col],
-                min_p_value
+                high_activation_images[human_score_col]
             )
         else:
             H = 0
         
         # 5. OVERALL INTERPRETABILITY SCORE
-        interp_score = calculate_interpretability_score(S, C, R, H, weights)
+        interp_score = calculate_interpretability_score(S, C, R, H)
         
         # Store results
         benchmark_results.append({

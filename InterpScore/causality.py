@@ -1,12 +1,12 @@
 import os
 import numpy as np
 from helpers import get_local_image_path
-from causality_score_helpers import test_complete_pipeline_ULTIMATE
+from causality_score_helpers import run_complete_intervention_pipeline
 
 
 def calculate_causality_score(
     exp_df, neuron_id, concept_name, activation_col,
-    n_images=30,                # keep fast: 30 image by default
+    n_images=1,                # keep fast: 30 image by default
     clean_only=True,
     tau=0.1,                   # remap scale so raw=0.1 -> 0.5
     remap_method="ratio",
@@ -30,7 +30,7 @@ def calculate_causality_score(
         print(f"    No images found for {concept_name} (clean_only={clean_only})")
         return 0.0
 
-    # sample up to n_images (default 1 for speed)
+    # sample up to n_images (default 30 for speed)
     k = min(n_images, len(concept_images))
     concept_images = concept_images.sample(k, random_state=seed)
 
@@ -43,9 +43,9 @@ def calculate_causality_score(
             if not os.path.exists(local_image_path):
                 continue
 
-            base = test_complete_pipeline_ULTIMATE(local_image_path, neuron_id, 'none')
-            abl  = test_complete_pipeline_ULTIMATE(local_image_path, neuron_id, 'ablate')
-            amp  = test_complete_pipeline_ULTIMATE(local_image_path, neuron_id, 'amplify', 2.0)
+            base = run_complete_intervention_pipeline(local_image_path, neuron_id, 'none')
+            abl  = run_complete_intervention_pipeline(local_image_path, neuron_id, 'ablate')
+            amp  = run_complete_intervention_pipeline(local_image_path, neuron_id, 'amplify', 2.0)
             if not (base.get('success') and abl.get('success') and amp.get('success')):
                 continue
 

@@ -31,7 +31,7 @@ class CLIPImage(Model):
         # Use the global session instead of creating a new one
         self.sess = global_session
         
-        with tf.gfile.GFile('../image32.pb', "rb") as f:
+        with tf.gfile.GFile('./image32.pb', "rb") as f:
             self.graph_def = tf.GraphDef()
             self.graph_def.ParseFromString(f.read())
         self.model_name = "RN50_4x"

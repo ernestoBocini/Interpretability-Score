@@ -22,6 +22,9 @@ def get_local_image_path(image_url):
     Returns:
         str: Local file path
     """
+    
+    GLOBAL_PATH = "Data/Image_Data"
+    
     # Extract the part after 'EXPERIMENT_HUMAN_CORRELATION'
     if 'EXPERIMENT_HUMAN_CORRELATION' not in image_url:
         raise ValueError(f"URL doesn't contain expected path: {image_url}")
@@ -32,30 +35,30 @@ def get_local_image_path(image_url):
     # Apply mapping rules
     if path_part.startswith('clean_images/'):
         # clean_images/raised_hand_clean_1.jpg -> clean_images/raised_hand_clean_1.jpg
-        local_path = path_part
+        local_path = os.path.join(GLOBAL_PATH, path_part)
         
     elif path_part.startswith('level1/'):
         # level1/fire_noisy_level1_2.jpg -> noisy_images/level1/fire_noisy_level1_2.jpg
         filename = path_part.split('level1/')[1]
-        local_path = f"noisy_images/level1/{filename}"
+        local_path = os.path.join(GLOBAL_PATH, f"noisy_images/level1/{filename}")
         
     elif path_part.startswith('level2/'):
         # level2/sailboat_noisy_level2_2.jpg -> noisy_images/level2/sailboat_noisy_level2_2.jpg
         filename = path_part.split('level2/')[1]
-        local_path = f"noisy_images/level2/{filename}"
+        local_path = os.path.join(GLOBAL_PATH, f"noisy_images/level2/{filename}")
         
     elif path_part.startswith('level3/'):
         # level3/something_noisy_level3_1.jpg -> noisy_images/level3/something_noisy_level3_1.jpg
         filename = path_part.split('level3/')[1]
-        local_path = f"noisy_images/level3/{filename}"
-        
+        local_path = os.path.join(GLOBAL_PATH, f"noisy_images/level3/{filename}")
+
     elif path_part.startswith('deepdream/'):
         # deepdream/neuron_967_gradient.jpg -> deepdream/neuron_967/neuron_967_gradient.jpg
         filename = path_part.split('deepdream/')[1]
         # Extract neuron number from filename (e.g., neuron_967_gradient.jpg -> 967)
         neuron_num = filename.split('_')[1]  # neuron_967_gradient.jpg -> 967
-        local_path = f"deepdream/neuron_{neuron_num}/{filename}"
-        
+        local_path = os.path.join(GLOBAL_PATH, f"deepdream/neuron_{neuron_num}/{filename}")
+
     else:
         raise ValueError(f"Unknown path pattern: {path_part}")
     
