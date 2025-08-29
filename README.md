@@ -10,6 +10,21 @@ This framework uses the **CLIP RN50x4** model as featured in the [OpenAI Multimo
 wget https://raw.githubusercontent.com/openai/CLIP-featurevis/master/model.py
 ```
 
+Then download the RN50_4x Image:
+
+```bash https://openaipublic.blob.core.windows.net/clip/tf/RN50_4x/084ee9c176da32014b0ebe42cd7ca66e/image32.pb
+wget 
+```
+
+Finally, in the code we updated the model.py file by adding multi-GPU support, and optimized TensorFlow configuration.
+
+Key differences:
+- **Multi-GPU setup**: Configures 3 GPUs with MirroredStrategy for distributed processing
+- **Session management**: Uses a shared global TensorFlow session instead of creating new ones
+- **Memory optimization**: Sets GPU memory growth and allocation limits
+- **Performance tuning**: Adds environment variables and ConfigProto settings for better GPU utilizationRiprovaClaude può commettere errori. Verifica sempre le risposte con attenzione.
+
+
 This choice ensures compatibility with existing interpretability research and provides access to the well-studied multimodal neurons identified in the OpenAI paper.
 
 ## 🎯 Overview
