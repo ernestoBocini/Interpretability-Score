@@ -1,0 +1,58 @@
+# Configuration file for benchmark visualization generation
+# Modify paths and settings as needed
+
+data:
+  input_file: "../results.csv"
+  output_dir: "paper_figures"
+
+# Component configuration
+components:
+  components: ["S", "C", "R", "H"]
+  labels:
+    S: "Selectivity"
+    C: "Causality"
+    R: "Robustness"
+    H: "Human Consistency"
+    InterpScore: "InterpScore"
+  colors:
+    S: "#1f77b4"
+    C: "#d62728"
+    R: "#2ca02c"
+    H: "#ff7f0e"
+    InterpScore: "#9467bd"
+  composite_score_name: "InterpScore"
+
+# Plotting configuration
+plotting:
+  figure_format: "svg"  # svg, pdf, png
+  dpi: 300
+  figure_width: 12.0
+  figure_height: 8.0
+  font_size_base: 12
+  font_family: "serif"
+  color_palette: "Set2"  # matplotlib/seaborn palette name
+  bootstrap_samples: 1000
+  alpha_level: 0.05
+
+# Control which figures to generate
+figures:
+  ranking_comparison: true
+  component_distributions: true
+  correlation_matrix: true
+  framework_validation: true
+  distribution_analysis: true        # Extended analysis - 2x2 violin plots with statistics
+  statistical_significance: true     # Extended analysis - effect sizes and p-values heatmap
+  power_analysis: true              # Extended analysis - power curves and achieved power
+  bootstrap_intervals: true         # Extended analysis - bootstrap confidence intervals
+  minimum_subset: true              # Extended analysis - dimensional sufficiency analysis
+  dimension_comparison: true        # Extended analysis - 1D vs 2D vs 3D vs 4D performance
+  component_importance: true        # Extended analysis - variance and range analysis
+
+# Control which tables to generate
+tables:
+  summary_statistics: true
+  ranking_comparison: false          # Extended analysis - detailed ranking table
+
+# Logging configuration
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR

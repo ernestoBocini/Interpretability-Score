@@ -3,4 +3,5 @@ Data/Prolific_Data/
 Data/Clip_Activation_Layer
 *__pycache__
 image32.pb
-.results_.csv
+results.csv
+Visualizations/paper_figures/
